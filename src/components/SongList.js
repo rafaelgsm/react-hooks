@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NewSongForm from './NewSongForm'
 import uuid from 'uuid/v1'
 
@@ -12,6 +12,8 @@ const SongList = () => {
         { title: 'this wild darkness', id: 3 }
     ])
 
+    const [age, setAge] = useState(20)
+
     const addSong = (title) => {
 
         //This will change the whole state...
@@ -21,6 +23,23 @@ const SongList = () => {
             { title, id: uuid() }
         ])
     }
+
+    //Runs every time the component renders or re-renders
+    // useEffect(() => {
+    //     console.log('useEffect run...');  
+    // })
+
+    //Will only run when SONGS changed:
+    useEffect(() => {
+        console.log('useEffect run for songs...');
+        
+    }, [songs])
+
+    //Will only run when AGE is changed:
+    useEffect(() => {
+        console.log('useEffect run for age...');
+        
+    }, [age])
 
     return (
         <div className="song-list">
@@ -32,6 +51,7 @@ const SongList = () => {
                 })}
             </ul>
             <NewSongForm addSong={addSong} />
+            <button onClick={() => setAge(age + 1)} > Add 1 to age: {age}</button>
         </div>
     );
 }
